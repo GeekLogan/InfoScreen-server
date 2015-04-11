@@ -10,12 +10,12 @@
 Key | Value | Format
 --- | --- | ---
 notificationIsActive | Status of Current Notification | `true` or `false`
-notificationTest | Text of Current Notification | String
+notificationText | Text of Current Notification | String
 notificationSender | Owner of Current Notification | String
 twitchChannel | Current Displayed Twitch Channel | String
 
 ### Calendar
-`Modeled as Array of following:`
+*Modeled as Array of following:*
 
 Key | Value | Format
 --- | --- | ---
