@@ -51,36 +51,35 @@
         $i++;
     }
     $i = 0;
-    $outputString .= '<forecast>';
+    $forcastTmp = "";
     foreach($yw_forecast['forecast'] as $a) {
         if($i != 0) {
-            $outputString .= '<forcastDay>';
-            $outputString .= xmlWrapper($a['day'], 'day');
-            $outputString .= xmlWrapper($a['low'], 'lowTemp');
-            $outputString .= xmlWrapper($a['high'], 'highTemp');
-            $outputString .= xmlWrapper($a['text'], 'description');
-            $outputString .= '</forcastDay>';
+            $forcastTmp .= '<forcastDay>';
+            $forcastTmp .= xmlWrapper($a['day'], 'day');
+            $forcastTmp .= xmlWrapper($a['low'], 'lowTemp');
+            $forcastTmp .= xmlWrapper($a['high'], 'highTemp');
+            $forcastTmp .= xmlWrapper($a['text'], 'description');
+            $forcastTmp .= '</forcastDay>';
         } else {
             $i++;
         }
     }
-    $outputString .= '</forecast>';
-
-
+    $outputString .= xmlWrapper($forcastTmp, "forecast");
     $outputString .= '</weather>';
+
     //END PARSE WEATHER
 
     //TODO get/print calendar
 
-    //TODO get/print bus info
+    //START BUSTIME FUNCTIONS
+
+    //END BUSTIME FUNCTIONS
 
     $outputString .= "</infoScreen></wrapper>";
-
     $outputTmp = simplexml_load_string($outputString)
         or die('{"error": "Cannot create object"}');
     $outputFinal = json_encode($outputTmp);
     //$curStatusArray = json_decode($json,TRUE);
 
-    //echo $outputString;
     echo $outputFinal;
 ?>
