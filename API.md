@@ -34,7 +34,7 @@ highTemp | Today's High Temperature | String
 lowTemp | Today's Low Temperature | String
 description | Description of Weather | String
 
-####Forecast
+#### Forecast
 *The following schema is used for forecasts returned by weather*
 
 *Modeled as an array of following:*

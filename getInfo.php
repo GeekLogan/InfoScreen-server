@@ -2,11 +2,22 @@
     require 'std.php';
     $outputString = "<wrapper><infoScreen>";
 
-    //$url = 'http://www.example.com/xml';
-    //$in_file = fopen($STORE_FILE_NAME, 'r');
-    //while(!feof($in_file)) {
-    //    $outputString .= fgets($in_file);
-    //}
+    function doBustimeRequest(String $cmd, String $data) {
+        require 'std.php';
+        $url = $BUSTIME_URL . $cmd . "?key=" . $BUSTIME_KEY;
+        $url .= $data;
+        $bustimeRaw = file_get_contents($url);
+        $bustimeXML = simplexml_load_string($bustimeRaw);
+        return json_encode($bustimeXML);
+    }
+
+    function xmlWrapper($a, $tagName) {
+        $out = '<'.$tagName.'>';
+        $out .= $a;
+        $out .= '</'.$tagName.'>';
+        return $out;
+    }
+
     $outputString .= file_get_contents($STORE_FILE_NAME);
 
     //PARSE WEATHER
@@ -26,46 +37,33 @@
     }
 
     //var_dump($yw_forecast);
+    //echo "\n";
 
     $outputString .= '<weather>';
-    $outputString .= '<currentTemp>';
-    $outputString .= $yw_forecast['condition']['temp'];
-    $outputString .= '</currentTemp>';
-    $outputString .= '<description>';
-    $outputString .= $yw_forecast['condition']['text'];
-    $outputString .= '</description>';
+    $outputString .= xmlWrapper($yw_forecast['condition']['temp'], 'currentTemp');
+    $outputString .= xmlWrapper($yw_forecast['condition']['text'], 'description');
     $i = 0;
     foreach($yw_forecast['forecast'] as $a) {
         if($i == 0) {
-            $outputString .= '<lowTemp>';
-            $outputString .= $a['low'];
-            $outputString .= '</lowTemp>';
-            $outputString .= '<highTemp>';
-            $outputString .= $a['high'];
-            $outputString .= '</highTemp>';
+            $outputString .= xmlWrapper($a['low'], 'lowTemp');
+            $outputString .= xmlWrapper($a['high'], 'highTemp');
+        } else {
+            $i++;
         }
-        $i++;
     }
     $i = 0;
     $outputString .= '<forecast>';
     foreach($yw_forecast['forecast'] as $a) {
         if($i != 0) {
             $outputString .= '<forcastDay>';
-            $outputString .= '<day>';
-            $outputString .= $a['day'];
-            $outputString .= '</day>';
-            $outputString .= '<lowTemp>';
-            $outputString .= $a['low'];
-            $outputString .= '</lowTemp>';
-            $outputString .= '<highTemp>';
-            $outputString .= $a['high'];
-            $outputString .= '</highTemp>';
-            $outputString .= '<description>';
-            $outputString .= $a['text'];
-            $outputString .= '</description>';
+            $outputString .= xmlWrapper($a['day'], 'day');
+            $outputString .= xmlWrapper($a['low'], 'lowTemp');
+            $outputString .= xmlWrapper($a['high'], 'highTemp');
+            $outputString .= xmlWrapper($a['text'], 'description');
             $outputString .= '</forcastDay>';
+        } else {
+            $i++;
         }
-        $i++;
     }
     $outputString .= '</forecast>';
 
