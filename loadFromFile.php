@@ -19,7 +19,7 @@
         return $out_str;
     }
 
-    $curStatusXML_string = getXML();
+    //$curStatusXML_string = getXML();
     //$curStatusXML = simplexml_load_string($curStatusXML_string) or die('{"error": "Cannot create object"}');
     //$curStatus = json_encode($xml);
     //$curStatusArray = json_decode($json,TRUE);
