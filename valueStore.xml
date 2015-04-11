@@ -1,0 +1,9 @@
+<server-vars>
+    <notification>
+        <on>false</on>
+        <msg>default</msg>
+    </notification>
+    <twitch>
+        <channel>twitchplayspokemon</channel>
+    </twitch>
+</server-vars>
