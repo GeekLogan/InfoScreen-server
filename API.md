@@ -9,9 +9,9 @@
 
 Key | Value | Format
 --- | --- | ---
-notificationIsActive | Status of Current Notification | `true` or `false`
-notificationText | Text of Current Notification | String
-notificationSender | Owner of Current Notification | String
+alertIsActive | Status of Current Alert | `true` or `false`
+alertText | Text of Current Alert | String
+alertSender | Owner of Current Alert | String
 twitchChannel | Current Displayed Twitch Channel | String
 
 ### Calendar
