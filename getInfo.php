@@ -81,6 +81,6 @@
     $outputFinal = json_encode($outputTmp);
     //$curStatusArray = json_decode($json,TRUE);
 
-    echo $outputString;
-    //echo $outputFinal;
+    //echo $outputString;
+    echo $outputFinal;
 ?>
