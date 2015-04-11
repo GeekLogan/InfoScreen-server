@@ -32,7 +32,7 @@ Key | Value | Format
 currentTemp | Current Local Temperature | String
 highTemp | Today's High Temperature | String
 lowTemp | Today's Low Temperature | String
-precipitation | Percent Chance of Precipitation | String
+description | Description of Weather | String
 
 ####Forecast
 *The following schema is used for forecasts returned by weather*
@@ -42,7 +42,6 @@ precipitation | Percent Chance of Precipitation | String
 Key | Value | Format
 --- | --- | ---
 Day | Day of the Week | String
-currentTemp | Current Local Temperature | String
 highTemp | Today's High Temperature | String
 lowTemp | Today's Low Temperature | String
-precipitation | Percent Chance of Precipitation | String
+description | Description of Weather | String
