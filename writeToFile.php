@@ -1,4 +1,4 @@
 <?php
-    include 'std.php';
+    require 'std.php';
 
 ?>

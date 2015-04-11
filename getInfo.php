@@ -1,9 +1,8 @@
 <?php
-    include 'std.php';
-    include 'loadFromFile';
+    require 'loadFromFile.php';
     //gets the $curStatus variable
 
-    echo getXML();
+    echo $curStatusXML_string;
 
     //TODO print $curStatus
 

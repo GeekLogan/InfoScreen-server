@@ -1,6 +1,5 @@
 <?php
-    include 'std.php';
-    include 'writeToFile.php';
+    require 'writeToFile.php';
 
     //TODO everything
 ?>

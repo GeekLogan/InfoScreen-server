@@ -1,5 +1,5 @@
 <?php
-    include 'std.php';
+    require 'std.php';
 
     function getXML()
     {
@@ -20,7 +20,7 @@
     }
 
     $curStatusXML_string = getXML();
-    $curStatusXML = simplexml_load_string($curStatusXML_string) or die('{"error": "Cannot create object"}');
-    $curStatus = json_encode($xml);
+    //$curStatusXML = simplexml_load_string($curStatusXML_string) or die('{"error": "Cannot create object"}');
+    //$curStatus = json_encode($xml);
     //$curStatusArray = json_decode($json,TRUE);
 ?>
