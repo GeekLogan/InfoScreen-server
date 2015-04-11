@@ -18,8 +18,6 @@
 
     echo $curStatus;
 
-    //TODO print $curStatus
-
     //TODO get/print weather
 
     //TODO get/print calendar
