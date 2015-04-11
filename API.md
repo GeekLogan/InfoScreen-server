@@ -5,7 +5,7 @@
 
 ## Schema
 ### Server Variables
-*Single object of following format:*
+*Modeled as single object of following format:*
 
 Key | Value | Format
 --- | --- | ---
@@ -23,3 +23,26 @@ time | Start Time of event | Hour:Minute (Relative Day)
 person | Owner of Event | String
 timeEnd | End Time of Event | Hour:Minute
 location | Location of Event | String
+
+### Weather
+*Modeled as single object of following format:*
+
+Key | Value | Format
+--- | --- | ---
+currentTemp | Current Local Temperature | String
+highTemp | Today's High Temperature | String
+lowTemp | Today's Low Temperature | String
+precipitation | Percent Chance of Precipitation | String
+
+####Forecast
+*The following schema is used for forecasts returned by weather*
+
+*Modeled as an array of following:*
+
+Key | Value | Format
+--- | --- | ---
+Day | Day of the Week | String
+currentTemp | Current Local Temperature | String
+highTemp | Today's High Temperature | String
+lowTemp | Today's Low Temperature | String
+precipitation | Percent Chance of Precipitation | String

@@ -11,16 +11,21 @@
         return $out_str;
     }
 
-    $curStatusXML = simplexml_load_string(getXMLText())
-        or die('{"error": "Cannot create object"}');
-    $curStatus = json_encode($curStatusXML);
+    $outputString = "<wrapper><infoScreen>";
+    $outputString = $outputString . getXMLText();
     //$curStatusArray = json_decode($json,TRUE);
-
-    echo $curStatus;
 
     //TODO get/print weather
 
     //TODO get/print calendar
 
     //TODO get/print bus info
+
+    $outputString = $outputString . "</infoScreen></wrapper>";
+
+    $outputTmp = simplexml_load_string($outputString)
+        or die('{"error": "Cannot create object"}');
+    $outputFinal = json_encode($outputTmp);
+
+    echo $outputFinal;
 ?>
