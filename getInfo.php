@@ -47,9 +47,8 @@
         if($i == 0) {
             $outputString .= xmlWrapper($a['low'], 'lowTemp');
             $outputString .= xmlWrapper($a['high'], 'highTemp');
-        } else {
-            $i++;
         }
+        $i++;
     }
     $i = 0;
     $outputString .= '<forecast>';
@@ -82,5 +81,6 @@
     $outputFinal = json_encode($outputTmp);
     //$curStatusArray = json_decode($json,TRUE);
 
-    echo $outputFinal;
+    echo $outputString;
+    //echo $outputFinal;
 ?>
