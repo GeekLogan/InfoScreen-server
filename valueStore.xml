@@ -1,6 +1,6 @@
-<server-vars>
+<serverVars>
     <alertIsActive>false</alertIsActive>
     <alertText>default</alertText>
     <alertSender>GeekLogan</alertSender>
     <twitchChannel>twitchplayspokemon</twitchChannel>
-</server-vars>
+</serverVars>
