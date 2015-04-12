@@ -1,33 +1,30 @@
 <?php
     require 'std.php';
-    $outputString = "<wrapper><infoScreen>";
 
     function doBustimeRequest(String $cmd, String $data) {
         require 'std.php';
-        $url = $BUSTIME_URL . $cmd . "?key=" . $BUSTIME_KEY;
-        $url .= $data;
+        $url = $BUSTIME_URL . $cmd . "?key=" . $BUSTIME_KEY . $data;
         $bustimeRaw = file_get_contents($url);
         $bustimeXML = simplexml_load_string($bustimeRaw);
-        return json_encode($bustimeXML);
+        return $bustimeXML;
     }
 
-    function xmlWrapper($a, $tagName) {
-        $out = '<'.$tagName.'>';
-        $out .= $a;
-        $out .= '</'.$tagName.'>';
-        return $out;
+    function xmlWrapper($value, $tagName) {
+        return '<'.$tagName.'>'.$value.'</'.$tagName.'>';
     }
 
     $outputString .= file_get_contents($STORE_FILE_NAME);
 
     //PARSE WEATHER
     $weather_feed = file_get_contents($WEATHER_ADDRESS);
-    $weather = simplexml_load_string($weather_feed);
-    $channel_yweather = $weather->channel->children("http://xml.weather.yahoo.com/ns/rss/1.0");
+    $weatherXML = simplexml_load_string($weather_feed);
+    $channel_yweather = $weatherXML->channel->children("http://xml.weather.yahoo.com/ns/rss/1.0");
+
     foreach($channel_yweather as $x => $channel_item)
     	foreach($channel_item->attributes() as $k => $attr)
     		$yw_channel[$x][$k] = $attr;
-    $item_yweather = $weather->channel->item->children("http://xml.weather.yahoo.com/ns/rss/1.0");
+
+    $item_yweather = $weatherXML->channel->item->children("http://xml.weather.yahoo.com/ns/rss/1.0");
     foreach($item_yweather as $x => $yw_item) {
     	foreach($yw_item->attributes() as $k => $attr) {
     		if($k == 'day') $day = $attr;
@@ -36,50 +33,47 @@
     	}
     }
 
-    //var_dump($yw_forecast);
-    //echo "\n";
-
-    $outputString .= '<weather>';
-    $outputString .= xmlWrapper($yw_forecast['condition']['temp'], 'currentTemp');
-    $outputString .= xmlWrapper($yw_forecast['condition']['text'], 'description');
+    $weatherTmp = xmlWrapper($yw_forecast['condition']['temp'], 'currentTemp');
+    $weatherTmp .= xmlWrapper($yw_forecast['condition']['text'], 'description');
     $i = 0;
     foreach($yw_forecast['forecast'] as $a) {
         if($i == 0) {
-            $outputString .= xmlWrapper($a['low'], 'lowTemp');
-            $outputString .= xmlWrapper($a['high'], 'highTemp');
+            $weatherTmp .= xmlWrapper($a['low'], 'lowTemp');
+            $weatherTmp .= xmlWrapper($a['high'], 'highTemp');
         }
         $i++;
     }
     $i = 0;
-    $forcastTmp = "";
+
+    $forecastTmp = "";
     foreach($yw_forecast['forecast'] as $a) {
         if($i != 0) {
-            $forcastTmp .= '<forcastDay>';
-            $forcastTmp .= xmlWrapper($a['day'], 'day');
-            $forcastTmp .= xmlWrapper($a['low'], 'lowTemp');
-            $forcastTmp .= xmlWrapper($a['high'], 'highTemp');
-            $forcastTmp .= xmlWrapper($a['text'], 'description');
-            $forcastTmp .= '</forcastDay>';
+            $forecastTmp .= xmlWrapper($a['day'], 'day');
+            $forecastTmp .= xmlWrapper($a['low'], 'lowTemp');
+            $forecastTmp .= xmlWrapper($a['high'], 'highTemp');
+            $forecastTmp .= xmlWrapper($a['text'], 'description');
+            $forecastTmp = xmlWrapper($forecastTmp, "forecastDay");
         } else {
             $i++;
         }
     }
-    $outputString .= xmlWrapper($forcastTmp, "forecast");
-    $outputString .= '</weather>';
 
+    $weatherTmp .= xmlWrapper($forecastTmp, 'forecast');
+    $outputString .= xmlWrapper($weatherTmp, 'weather');
     //END PARSE WEATHER
 
     //TODO get/print calendar
 
     //START BUSTIME FUNCTIONS
-
+    $outputString .= doBustimeRequest("time", "");
     //END BUSTIME FUNCTIONS
 
-    $outputString .= "</infoScreen></wrapper>";
+    $outputString = xmlWrapper($outputString, "infoScreen");
+    $outputString = xmlWrapper($outputString, "wrapper");
+
     $outputTmp = simplexml_load_string($outputString)
         or die('{"error": "Cannot create object"}');
     $outputFinal = json_encode($outputTmp);
-    //$curStatusArray = json_decode($json,TRUE);
 
     echo $outputFinal;
 ?>
