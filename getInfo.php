@@ -1,6 +1,8 @@
 <?php
     require 'std.php';
 
+    $requestedStopId = "44";
+
     function doBustimeRequest($cmd, $data) {
         require 'std.php';
         $url = $BUSTIME_URL . $cmd . "?key=" . $BUSTIME_KEY . $data;
@@ -72,6 +74,7 @@
     foreach($routesXML as $a) {
         $lineTmp = xmlWrapper($a->rt, "code");
         $stopsXML = doBustimeRequest("getstops", "&dir=Circular&rt=" . $a->rt);
+
         $stopsTmp = "";
         foreach($stopsXML as $b) {
             $stopLineTmp = xmlWrapper($b->stpid, "id");
@@ -81,11 +84,38 @@
             $stopsTmp .= xmlWrapper($stopLineTmp, "stop");
         }
         $lineTmp .= xmlWrapper($stopsTmp, "stops");
+
+        $vehiclesTmp = "";
+        $vehiclesXML = doBustimeRequest("getvehicles", "&rt=" . $a->rt);
+        if(empty($vehiclesXML->error)) { //print data
+            foreach($vehiclesXML->vehicle as $c) {
+                $vehicleLine = xmlWrapper($c->vid, "vid");
+                $vehicleLine .= xmlWrapper($c->lat, "lat");
+                $vehicleLine .= xmlWrapper($c->lon, "lon");
+                $vehicleLine .= xmlWrapper($c->des, "destination");
+                $vehicleLine .= xmlWrapper($c->spd, "stopDestination");
+                $vehiclesTmp .= xmlWrapper($vehicleLine, "vehicle");
+            }
+        } else { //error
+            $vehiclesTmp .= xmlWrapper("No Vehicles Found", "error");
+        }
+        $lineTmp .= xmlWrapper($vehiclesTmp, "vehicles");
+
         $lineTmp .= xmlWrapper($a->rtnm, "name");
         $lineTmp .= xmlWrapper($a->rtclr, "color");
         $routesTmp .= xmlWrapper($lineTmp, "route");
     }
     $bustimeTmp .= xmlWrapper($routesTmp, "routes");
+
+    $predictionTmp = "";
+    if($requestedStopId != "") {
+        $predictionXML = doBustimeRequest("getpredictions", "&stpid=" . $requestedStopId);
+        foreach($predictionXML->prd as $a) {
+            $predictionLine = xmlWrapper($a->prdtm, "time");
+            $predictionTmp .= xmlWrapper($predictionLine, "predictionUnit");
+        }
+    }
+    $outputString .= xmlWrapper($predictionTmp, "prediction");
 
     $outputString .= xmlWrapper($bustimeTmp, "busInfo");
     //END BUSTIME FUNCTIONS
