@@ -112,6 +112,9 @@
         $predictionXML = doBustimeRequest("getpredictions", "&stpid=" . $requestedStopId);
         foreach($predictionXML->prd as $a) {
             $predictionLine = xmlWrapper($a->prdtm, "time");
+            $predictionLine .= xmlWrapper($a->rt, "route");
+            $predictionLine .= xmlWrapper($a->rtdir, "direction");
+            $predictionLine .= xmlWrapper($a->vid, "vid");
             $predictionTmp .= xmlWrapper($predictionLine, "predictionUnit");
         }
     }
