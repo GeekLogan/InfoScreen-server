@@ -1,7 +1,8 @@
 <?php
     require 'std.php';
 
-    $requestedStopId = "44";
+    $settings = simplexml_load_string(file_get_contents("valueStore.xml"));
+    $requestedStopId = $settings->defaultStopId;
 
     function doBustimeRequest($cmd, $data) {
         require 'std.php';
