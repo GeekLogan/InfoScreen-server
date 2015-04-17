@@ -15,7 +15,8 @@
         return '<'.$tagName.'>'.$value.'</'.$tagName.'>';
     }
 
-    $outputString .= file_get_contents($STORE_FILE_NAME);
+    $outputString = file_get_contents($STORE_FILE_NAME);
+    $outputString = str_replace('<?xml version="1.0"?>', "", $outputString);
 
     //PARSE WEATHER
     $weather_feed = file_get_contents($WEATHER_ADDRESS);
@@ -65,48 +66,9 @@
     $outputString .= xmlWrapper($weatherTmp, 'weather');
     //END PARSE WEATHER
 
-    //TODO get/print calendar
+    //@TODO get/print calendar
 
-    //START BUSTIME FUNCTIONS
-    $bustimeTmp = xmlWrapper(doBustimeRequest("gettime", "")->tm, "systemTime");
-    $routesXML = doBustimeRequest("getroutes", "");
-    $routesTmp = "";
-    foreach($routesXML as $a) {
-        $lineTmp = xmlWrapper($a->rt, "code");
-        $stopsXML = doBustimeRequest("getstops", "&dir=Circular&rt=" . $a->rt);
-
-        $stopsTmp = "";
-        foreach($stopsXML as $b) {
-            $stopLineTmp = xmlWrapper($b->stpid, "id");
-            $stopLineTmp .= xmlWrapper(preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $b->stpnm), "name");
-            $stopLineTmp .= xmlWrapper($b->lat, "lat");
-            $stopLineTmp .= xmlWrapper($b->lon, "lon");
-            $stopsTmp .= xmlWrapper($stopLineTmp, "stop");
-        }
-        $lineTmp .= xmlWrapper($stopsTmp, "stops");
-
-        $vehiclesTmp = "";
-        $vehiclesXML = doBustimeRequest("getvehicles", "&rt=" . $a->rt);
-        if(empty($vehiclesXML->error)) { //print data
-            foreach($vehiclesXML->vehicle as $c) {
-                $vehicleLine = xmlWrapper($c->vid, "vid");
-                $vehicleLine .= xmlWrapper($c->lat, "lat");
-                $vehicleLine .= xmlWrapper($c->lon, "lon");
-                $vehicleLine .= xmlWrapper($c->des, "destination");
-                $vehicleLine .= xmlWrapper($c->spd, "stopDestination");
-                $vehiclesTmp .= xmlWrapper($vehicleLine, "vehicle");
-            }
-        } else { //error
-            $vehiclesTmp .= xmlWrapper("No Vehicles Found", "error");
-        }
-        $lineTmp .= xmlWrapper($vehiclesTmp, "vehicles");
-
-        $lineTmp .= xmlWrapper($a->rtnm, "name");
-        $lineTmp .= xmlWrapper($a->rtclr, "color");
-        $routesTmp .= xmlWrapper($lineTmp, "route");
-    }
-    $bustimeTmp .= xmlWrapper($routesTmp, "routes");
-
+    //START BUSTIME FUNCTIONS NOTE: Bustime Spanning Tree Search has Been Removed to Save Time
     $predictionTmp = "";
     if($requestedStopId != "") {
         $predictionXML = doBustimeRequest("getpredictions", "&stpid=" . $requestedStopId);
