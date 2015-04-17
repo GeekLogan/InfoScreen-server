@@ -1,6 +1,8 @@
+<?xml version="1.0"?>
 <serverVars>
     <alertIsActive>false</alertIsActive>
     <alertText>default</alertText>
     <alertSender>GeekLogan</alertSender>
     <twitchChannel>twitchplayspokemon</twitchChannel>
+    <defaultStop>44</defaultStop>
 </serverVars>
