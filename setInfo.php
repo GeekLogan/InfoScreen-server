@@ -8,7 +8,10 @@ $doc->formatOutput = false;
 $dom->load($STORE_FILE_NAME);
 $root=$dom->documentElement;
 
-$cmd = $_GET['cmd'];
+$cmd = "";
+if(!empty($_GET['cmd']))
+        $cmd = $_GET['cmd'];
+        
 if($cmd == 'dismiss'){
         $dom->getElementsByTagName('alertIsActive')->item(0)->nodeValue = 'false';
 } else if ($cmd == 'enable') {
