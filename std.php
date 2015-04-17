@@ -5,4 +5,5 @@
     $WEATHER_ADDRESS = "http://weather.yahooapis.com/forecastrss?p=".$ZIP_CODE."&u=f";
     $BUSTIME_KEY = "";
     $BUSTIME_URL = "http://trip.osu.edu/bustime/api/v1/";
+    $REQUEST_AUTH_TOKEN = ""; //Add value to require ?auth=xxx for valid requests
 ?>
