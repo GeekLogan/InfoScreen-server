@@ -2,7 +2,7 @@
 
 require 'std.php';
 
-$dom=new DOMDocument();
+$dom = new DOMDocument();
 
 $doc->formatOutput = false;
 $dom->load($STORE_FILE_NAME);
