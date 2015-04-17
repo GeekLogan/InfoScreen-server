@@ -82,8 +82,6 @@
         }
     }
     $outputString .= xmlWrapper($predictionTmp, "prediction");
-
-    $outputString .= xmlWrapper($bustimeTmp, "busInfo");
     //END BUSTIME FUNCTIONS
 
     $outputString = xmlWrapper($outputString, "infoScreen");
