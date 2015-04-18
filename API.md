@@ -13,6 +13,7 @@ alertIsActive | Status of Current Alert | `true` or `false`
 alertText | Text of Current Alert | String
 alertSender | Owner of Current Alert | String
 twitchChannel | Current Displayed Twitch Channel | String
+defaultStop | Default stop id for bus info | int
 
 ### Calendar
 *Modeled as Array of following:*
@@ -47,7 +48,7 @@ lowTemp | Today's Low Temperature | String
 description | Description of Weather | String
 
 ###Bus Predictions
-*Bus Predictions are governed by the `?stpid=#` operator to the get request*
+*Bus Predictions are governed by the `?stpid=#` operator to the get request, defaults to `valueStore.xml->defaultStop`*
 
 *Modeled as a single object of following format:*
 
