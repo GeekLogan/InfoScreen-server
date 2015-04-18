@@ -1,16 +1,15 @@
 <?php
     require 'std.php';
-
     $settings = simplexml_load_string(file_get_contents("valueStore.xml"));
-    $requestedStopId = $settings->defaultStop;
-    
-    if(!empty($_GET['stpId'])) $requestedStopId = $_GET['stpId'];
-
+    $requestedStopId = $settings->defaultStop . "";
+    if(!empty($_GET['stpid']))
+        $requestedStopId = $_GET['stpid'];
     function doBustimeRequest($cmd, $data) {
         require 'std.php';
         $url = $BUSTIME_URL . $cmd . "?key=" . $BUSTIME_KEY . $data;
         $bustimeRaw = file_get_contents($url);
         $bustimeXML = simplexml_load_string($bustimeRaw);
+    }
         return $bustimeXML;
     }
 
@@ -27,16 +26,16 @@
     $channel_yweather = $weatherXML->channel->children("http://xml.weather.yahoo.com/ns/rss/1.0");
 
     foreach($channel_yweather as $x => $channel_item)
-    	foreach($channel_item->attributes() as $k => $attr)
-    		$yw_channel[$x][$k] = $attr;
+        foreach($channel_item->attributes() as $k => $attr)
+                $yw_channel[$x][$k] = $attr;
 
     $item_yweather = $weatherXML->channel->item->children("http://xml.weather.yahoo.com/ns/rss/1.0");
     foreach($item_yweather as $x => $yw_item) {
-    	foreach($yw_item->attributes() as $k => $attr) {
-    		if($k == 'day') $day = $attr;
-    		if($x == 'forecast') { $yw_forecast[$x][$day . ''][$k] = $attr;	}
-    		else { $yw_forecast[$x][$k] = $attr; }
-    	}
+        foreach($yw_item->attributes() as $k => $attr) {
+                if($k == 'day') $day = $attr;
+                if($x == 'forecast') { $yw_forecast[$x][$day . ''][$k] = $attr; }
+                else { $yw_forecast[$x][$k] = $attr; }
+        }
     }
 
     $weatherTmp = xmlWrapper($yw_forecast['condition']['temp'], 'currentTemp');
@@ -73,7 +72,7 @@
 
     //START BUSTIME FUNCTIONS NOTE: Bustime Spanning Tree Search has Been Removed to Save Time
     $predictionTmp = "";
-    if($requestedStopId != "") {
+    if(strcmp($requestedStopId, "") != 0) {
         $predictionXML = doBustimeRequest("getpredictions", "&stpid=" . $requestedStopId);
         foreach($predictionXML->prd as $a) {
             $predictionLine = xmlWrapper($a->prdtm, "time");
