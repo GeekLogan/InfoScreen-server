@@ -41,7 +41,21 @@ description | Description of Weather | String
 
 Key | Value | Format
 --- | --- | ---
-Day | Day of the Week | String
+day | Day of the Week | String
 highTemp | Today's High Temperature | String
 lowTemp | Today's Low Temperature | String
 description | Description of Weather | String
+
+###Bus Predictions
+*Bus Predictions are governed by the `?stpid=#` operator to the get request*
+
+*Modeled as a single object of following format:*
+
+Key | Value | Format
+--- | --- | ---
+time | Predicted time of bus at the stop | *EX:* `20150418 18:45`
+route | The route of the prediction | Letter-wise code of bus route
+stop | The stop number | int
+direction | The direction the bus is traveling | String
+vid | The bus VID | int
+
