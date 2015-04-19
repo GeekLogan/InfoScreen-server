@@ -20,9 +20,9 @@ defaultStop | Default stop id for bus info | int
 
 Key | Value | Format
 --- | --- | ---
-time | Start Time of event | Hour:Minute (Relative Day)
+start | Start Time of event | Hour:Minute (Relative Day)
 person | Owner of Event | String
-timeEnd | End Time of Event | Hour:Minute
+end | End Time of Event | Hour:Minute
 location | Location of Event | String
 
 ### Weather
@@ -59,4 +59,3 @@ route | The route of the prediction | Letter-wise code of bus route
 stop | The stop number | int
 direction | The direction the bus is traveling | String
 vid | The bus VID | int
-

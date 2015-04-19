@@ -11,7 +11,7 @@ $root=$dom->documentElement;
 $cmd = "";
 if(!empty($_GET['cmd']))
         $cmd = $_GET['cmd'];
-        
+
 if($cmd == 'dismiss'){
         $dom->getElementsByTagName('alertIsActive')->item(0)->nodeValue = 'false';
 } else if ($cmd == 'enable') {
