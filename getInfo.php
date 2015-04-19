@@ -9,6 +9,7 @@
     $outputString = str_replace('<?xml version="1.0"?>', "", $outputString);
 
     include 'modules/weather.php';
+    include 'modules/calendar.php';
     include 'modules/bustime.php';
 
     $outputString = xmlWrapper($outputString, "infoScreen");
