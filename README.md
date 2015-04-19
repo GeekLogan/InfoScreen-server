@@ -10,4 +10,5 @@ See `LICENSE` file for project license.
 ### Use
 1. Clone `InfoScreen-sever` into the production server
 2. Change Default Params
-2. Profit!
+3. Remove LICENSE/README/etc. files as needed
+4. Profit!
