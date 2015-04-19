@@ -20,10 +20,11 @@ defaultStop | Default stop id for bus info | int
 
 Key | Value | Format
 --- | --- | ---
-start | Start Time of event | Hour:Minute (Relative Day)
-person | Owner of Event | String
-end | End Time of Event | Hour:Minute
-location | Location of Event | String
+start | Start Time of event | ISO Timestamp
+owner | Owner of Event | String
+end | End Time of Event | ISO Timestamp
+name | A description of the event | String
+color | The HTML color spec to use when displaying | HTML Color `<#aaaaaa>`
 
 ### Weather
 *Modeled as single object of following format:*
