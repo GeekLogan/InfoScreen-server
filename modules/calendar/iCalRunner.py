@@ -10,13 +10,15 @@ for urlChild in root:
     file = iCalToXML.loadFileFromLink(urlChild.text)
     events = iCalToXML.getAllEvents(file)
     for event in events:
-        event.owner = "tim"
+        event.owner = urlChild.get('owner')
+        event.color = urlChild.get('color')
     output.extend(events)
 
-#iCalToXML.printAsXML(output)
 for event in output:
     line = str(event)
     line += "<owner>"
     line += event.owner
-    line += "</owner>"
+    line += "</owner><color>"
+    line += event.color
+    line += "</color>"
     print line
