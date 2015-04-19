@@ -1,7 +1,7 @@
 import iCalToXML
 
 import xml.etree.ElementTree as ET
-tree = ET.parse('calendar/calendars.xml')
+tree = ET.parse('modules/calendar/calendars.xml')
 root = tree.getroot()
 
 output = []
@@ -15,10 +15,11 @@ for urlChild in root:
     output.extend(events)
 
 for event in output:
-    line = str(event)
+    line = "<event>"
+    line += str(event)
     line += "<owner>"
     line += event.owner
     line += "</owner><color>"
     line += event.color
-    line += "</color>"
+    line += "</color></event>"
     print line

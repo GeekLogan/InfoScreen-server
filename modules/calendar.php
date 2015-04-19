@@ -1,7 +1,7 @@
 <?
 
-$command = escapeshellcmd('python calendar/iCalRunner.py');
+$command = escapeshellcmd('python modules/calendar/iCalRunner.py');
 $calendarTmp = shell_exec($command);
-outputString .= xmlWrapper($calendarTmp, "calendar");
+$outputString .= xmlWrapper($calendarTmp, "calendar");
 
 ?>
