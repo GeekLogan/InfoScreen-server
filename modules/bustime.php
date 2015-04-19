@@ -26,6 +26,7 @@ if(strcmp($requestedStopId, "") != 0) {
         $predictionTmp .= xmlWrapper($predictionLine, "predictionUnit");
     }
 }
+
 $outputString .= xmlWrapper($predictionTmp, "prediction");
 
 ?>
