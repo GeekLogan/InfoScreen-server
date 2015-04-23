@@ -10,5 +10,6 @@ See `LICENSE` file for project license.
 ### Use
 1. Clone `InfoScreen-sever` into the production server
 2. Change Default Params
-3. Remove LICENSE/README/etc. files as needed
-4. Profit!
+3. Add security settings for the modules folder, etc.
+4. Remove LICENSE/README/etc. files as needed
+5. Profit!
