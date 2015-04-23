@@ -1,7 +1,9 @@
 # InfoScreen Server Response API
 
 ## Calling
-* Calls to `getInfo.php` responds in `application/json` according to the following schema
+* Calls to `getInfo.php` responds in `application/json` according to the following schema:
+* If authentication is enabled, `auth=#` where `#` is the authentication token must be added to
+the request or the server will return an error.
 
 ## Schema
 ### Server Variables
