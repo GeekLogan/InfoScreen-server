@@ -9,9 +9,7 @@
     $outputString = str_replace('<?xml version="1.0"?>', "", $outputString);
 
     include 'modules/weather.php';
-    $cal = file_get_contents("modules/calendar/calendar_buffer.txt") or $cal = "";
-    $outputString .= xmlWrapper($cal, "calendar");
-    //include 'modules/calendar.php';
+    include 'modules/calendar.php';
     include 'modules/bustime.php';
 
     $outputString = xmlWrapper($outputString, "infoScreen");
@@ -24,6 +22,4 @@
     //echo $outputString;
 
     session_write_close();
-
-    include 'modules/calendar/updateCalendar.php';
 ?>
