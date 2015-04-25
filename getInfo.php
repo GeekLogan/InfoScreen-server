@@ -9,7 +9,9 @@
     $outputString = str_replace('<?xml version="1.0"?>', "", $outputString);
 
     include 'modules/weather.php';
-    include 'modules/calendar.php';
+    $cal = file_get_contents("modules/calendar/calendar_buffer.txt") or $cal = "";
+    $outputString .= xmlWrapper($cal, "calendar");
+    //include 'modules/calendar.php';
     include 'modules/bustime.php';
 
     $outputString = xmlWrapper($outputString, "infoScreen");
@@ -18,7 +20,10 @@
     $outputTmp = simplexml_load_string($outputString) or die('{"error": "Cannot create object"}');
     $outputFinal = json_encode($outputTmp);
 
-    echo $outputFinal;
+    echo $outputFinal . "\n";
     //echo $outputString;
-    echo "\n";
+
+    session_write_close();
+
+    include 'modules/calendar/updateCalendar.php';
 ?>
