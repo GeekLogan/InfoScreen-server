@@ -1,4 +1,4 @@
-<?
+<?php
 
 $weather_feed = file_get_contents($WEATHER_ADDRESS);
 $weatherXML = simplexml_load_string($weather_feed);

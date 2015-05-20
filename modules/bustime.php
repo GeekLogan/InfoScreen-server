@@ -1,4 +1,4 @@
-<?
+<?php
 
 function doBustimeRequest($cmd, $data) {
     require 'std.php';
