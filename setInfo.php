@@ -18,6 +18,8 @@ if($cmd == 'dismiss'){
         $dom->getElementsByTagName('alertIsActive')->item(0)->nodeValue = 'true';
         $dom->getElementsByTagName('alertText')->item(0)->nodeValue = $_GET['msg'];
         $dom->getElementsByTagName('alertSender')->item(0)->nodeValue = $_GET['sender'];
+} else if ($cmd == 'setTwitch'){
+		$dom->getElementsByTagName('twitchChannel')->item(0)->nodeValue = $_GET['channel'];
 }
 
 $dom->save($STORE_FILE_NAME);
