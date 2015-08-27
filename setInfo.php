@@ -20,6 +20,8 @@ if($cmd == 'dismiss'){
         $dom->getElementsByTagName('alertSender')->item(0)->nodeValue = $_GET['sender'];
 } else if ($cmd == 'setTwitch'){
 		$dom->getElementsByTagName('twitchChannel')->item(0)->nodeValue = $_GET['channel'];
+} else if ($cmd == 'setBus'){
+    $dom->getElementsByTagName('defaultStop')->item(0)->nodeValue = $_GET['stop'];
 }
 
 $dom->save($STORE_FILE_NAME);
